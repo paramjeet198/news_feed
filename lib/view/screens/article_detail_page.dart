@@ -16,34 +16,52 @@ class ArticleDetailPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Hero(
-            tag: article.title, // Ensure this tag matches the one in ArticleListItem
-            child: CachedNetworkImage(
-              imageUrl: article.imageUrl,
-              height: 250,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              article.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              article.description,
-              style: const TextStyle(fontSize: 16),
-            ),
-          ),
+          _buildHeroImage(),
+          _buildTitle(),
+          _buildDescription(),
           // Add more details of the article here if needed
         ],
+      ),
+    );
+  }
+
+  // Hero image widget
+  Widget _buildHeroImage() {
+    return Hero(
+      tag: article.title, // Ensure this tag matches the one in ArticleListItem
+      child: CachedNetworkImage(
+        imageUrl: article.imageUrl,
+        height: 300,
+        width: double.infinity,
+        fit: BoxFit.cover,
+        placeholder: (context, url) =>
+            const Center(child: CircularProgressIndicator()),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
+    );
+  }
+
+  // Title widget
+  Widget _buildTitle() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text(
+        article.title,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 24,
+        ),
+      ),
+    );
+  }
+
+  // Description widget
+  Widget _buildDescription() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Text(
+        article.description,
+        style: const TextStyle(fontSize: 16),
       ),
     );
   }
