@@ -34,8 +34,10 @@ class ArticleDetailPage extends StatelessWidget {
         height: 300,
         width: double.infinity,
         fit: BoxFit.cover,
-        placeholder: (context, url) =>
-            const Center(child: CircularProgressIndicator()),
+        placeholder: (context, url) => Image.asset(
+          'assets/img/placeholder.jpg',
+          fit: BoxFit.cover,
+        ),
         errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
     );

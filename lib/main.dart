@@ -14,23 +14,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FirestoreService articleService =
-      FirestoreService(collectionPath: 'articles');
 
-  // // Add an article
-  // await articleService.addArticle(Article(
-  //   title: 'New Article',
-  //   description: 'This is an article about Firestore caching',
-  //   imageUrl: 'https://example.com/image.jpg',
-  //   timeStamp: Timestamp.now(),
-  // ));
-
-  // Listen to articles in real-time
-  articleService.getArticles().listen((articles) {
-    for (var article in articles) {
-      print(article.title);
-    }
-  });
 
   runApp(const ProviderScope(child: MyApp()));
 }

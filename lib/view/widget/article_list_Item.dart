@@ -42,9 +42,14 @@ class ArticleListItem extends StatelessWidget {
           height: 220,
           width: double.infinity,
           fit: BoxFit.cover,
-          placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          placeholder: (context, url) => Image.asset(
+            'assets/img/placeholder.jpg',
+            fit: BoxFit.cover,
+          ),
+          errorWidget: (context, url, error) => const Icon(
+            Icons.error,
+            color: Colors.redAccent,
+          ),
         ),
       ),
     );
