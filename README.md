@@ -15,12 +15,23 @@ Firestore Caching: Articles are cached locally and sync when online.
 Efficient Data Management: Riverpod handles state efficiently, reducing redundant reads and rebuilds.
 Image & Data Caching: Both articles and images are cached to minimize network usage and improve app speed.
 
-Dependencies
+### Performance Optimization
+1. Caching Strategy
+   Firestore Caching: Firestore stores articles locally and syncs them when the network is available.
+   Image Caching: The cached_network_image package reduces repeated downloads of images, improving app performance.
+2. Efficient Data Management
+   Riverpod efficiently handles the app’s state, reducing unnecessary reads from Firebase and minimizing rebuilds.
+   Pagination and lazy loading ensure that only the required data is fetched and displayed.
+3. Optimized for Limited Connectivity
+   Offline support ensures that cached data and images are shown when the device is offline.
+   Connectivity Check ensures the app only attempts to fetch new data when the network is available.
+
+### Dependencies
 riverpod: ^2.0.0
 cached_network_image: ^3.2.1
 connectivity_plus: ^6.1.0
 firebase_core: ^1.10.0
 cloud_firestore: ^3.1.5
 
-Conclusion
+### Conclusion
 This app is optimized for performance with lazy loading, image caching, and offline support, ensuring a smooth user experience even with poor connectivity.
