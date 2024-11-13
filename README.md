@@ -16,7 +16,7 @@ Efficient Data Management: Riverpod handles state efficiently, reducing redundan
 Image & Data Caching: Both articles and images are cached to minimize network usage and improve app speed.
 
 ### Performance Optimization
-1. Caching Strategy
+#### 1. Caching Strategy
    Firestore Caching: Firestore stores articles locally and syncs them when the network is available.
    Image Caching: The cached_network_image package reduces repeated downloads of images, improving app performance.
 2. Efficient Data Management
