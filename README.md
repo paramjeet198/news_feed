@@ -76,5 +76,17 @@ dev_dependencies:
   riverpod_lint: ^2.6.2
 
 ```
+
+
+### Screenshots
+- News Feed List Screen
+- Detail Screen
+
+<p float="left">
+  <img src="https://github.com/paramjeet198/easemydeal/blob/master/list.jpg" width="300" height="600"  alt="List Screen"/>
+  <img src="https://github.com/paramjeet198/easemydeal/blob/master/loading.jpg" width="300" height="600" alt="Loading State"/>
+</p>
+
+
 ### Conclusion
 This app is optimized for performance with lazy loading, image caching, and offline support, ensuring a smooth user experience even with poor connectivity.
