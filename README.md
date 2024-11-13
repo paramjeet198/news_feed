@@ -28,7 +28,7 @@ It uses **Riverpod** for **state management**, **cached_network_image** for **im
 - The app fetches articles from Firestore using a paginated approach.
 - The FirestoreService handles interaction with Firestore to fetch articles in batches, ensuring efficient data retrieval.
 
-#### 2.State Management with Riverpod:
+#### 2. State Management with Riverpod:
 - The ArticleNotifier is a Riverpod provider that manages the state for articles.
 - It fetches the initial batch of articles and handles pagination for loading more articles as the user scrolls.
 

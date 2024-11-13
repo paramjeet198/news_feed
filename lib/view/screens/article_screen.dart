@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:news_feed/model/article.dart';
 import 'package:news_feed/providers/paginated_article_notifier.dart';
+import 'package:news_feed/routes.dart';
 import 'package:news_feed/utils/logger.dart';
 import 'package:news_feed/utils/no_internet_exception.dart';
 import 'package:news_feed/view/widget/article_list_Item.dart';
@@ -41,7 +43,7 @@ class ArticleScreen extends ConsumerWidget {
                 final article = articles[index];
                 return ArticleListItem(
                   article: article,
-                  onTap: () => _moveToDetailPage(context, article),
+                  onTap: () => {_moveToDetailPage(context, article)},
                 );
               },
             );
@@ -96,12 +98,14 @@ class ArticleScreen extends ConsumerWidget {
     );
   }
 
-  Future<dynamic> _moveToDetailPage(BuildContext context, Article article) {
-    return Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ArticleDetailPage(article: article),
-      ),
-    );
+  _moveToDetailPage(BuildContext context, Article article) {
+    context.go('/detail', extra: article);
+
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => ArticleDetailPage(article: article),
+    //   ),
+    // );
   }
 }
