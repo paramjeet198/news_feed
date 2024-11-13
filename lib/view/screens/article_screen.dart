@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news_feed/model/article.dart';
+import 'package:news_feed/providers/paginated_article_notifier.dart';
 import 'package:news_feed/providers/providers.dart';
+import 'package:news_feed/utils/logger.dart';
 import 'package:news_feed/view/widget/article_list_Item.dart';
+import 'package:news_feed/view/widget/loader.dart';
 
 import 'article_detail_page.dart';
 
@@ -10,34 +14,46 @@ class ArticleScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var asyncArticle = ref.watch(fetchArticleProvider);
+    var asyncArticle = ref.watch(articleNotifierProvider(limit: 2));
+    final notifier = ref.read(articleNotifierProvider(limit: 2).notifier);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("New Feed"),
+        title: const Text("News Feed"),
       ),
       body: asyncArticle.when(
         data: (articles) {
           return ListView.builder(
-            itemCount: articles.length,
+            itemCount: articles.length + (notifier.hasMore ? 1 : 0),
             itemBuilder: (context, index) {
+              if (index == articles.length) {
+                // Display loading indicator when loading more
+                notifier.loadMoreArticles();
+                return const Loader();
+              }
+
               final article = articles[index];
               return ArticleListItem(
                 article: article,
-                onTap: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ArticleDetailPage(article: article),
-                    ),
-                  )
-                },
+                onTap: () => _moveToDetailPage(context, article),
               );
             },
           );
         },
-        error: (error, stackTrace) => Center(child: Text('Error: $error')),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) {
+          Log.v("Error: $error");
+          return Center(child: Text('Error: $error'));
+        },
+        loading: () => const Loader(),
+      ),
+    );
+  }
+
+  Future<dynamic> _moveToDetailPage(BuildContext context, Article article) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ArticleDetailPage(article: article),
       ),
     );
   }

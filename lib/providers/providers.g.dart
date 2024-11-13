@@ -23,7 +23,7 @@ final fireStoreServiceProvider = AutoDisposeProvider<FirestoreService>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FireStoreServiceRef = AutoDisposeProviderRef<FirestoreService>;
-String _$fetchArticleHash() => r'302590622f42720d27fe9b5fd655792c5c13478f';
+String _$fetchArticleHash() => r'f1ee6e7143e347bb1f14f7a6bb03ec854ff69bb3';
 
 /// See also [fetchArticle].
 @ProviderFor(fetchArticle)
