@@ -83,8 +83,8 @@ dev_dependencies:
 - Detail Screen
 
 <p float="left">
-  <img src="https://github.com/paramjeet198/easemydeal/blob/master/list.jpg" width="300" height="600"  alt="List Screen"/>
-  <img src="https://github.com/paramjeet198/easemydeal/blob/master/loading.jpg" width="300" height="600" alt="Loading State"/>
+  <img src="https://github.com/paramjeet198/news_feed/blob/master/visual/Detail%20Screen.jpg" width="300" height="600"  alt="List Screen"/>
+  <img src="https://github.com/paramjeet198/news_feed/blob/master/visual/News%20Feed%20List%20Screen.jpeg" width="300" height="600" alt="Loading State"/>
 </p>
 
 
