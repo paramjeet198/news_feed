@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_feed/model/article.dart';
 import 'package:news_feed/providers/paginated_article_notifier.dart';
-import 'package:news_feed/providers/providers.dart';
 import 'package:news_feed/utils/logger.dart';
 import 'package:news_feed/view/widget/article_list_Item.dart';
 import 'package:news_feed/view/widget/loader.dart';
@@ -26,8 +25,8 @@ class ArticleScreen extends ConsumerWidget {
           return ListView.builder(
             itemCount: articles.length + (notifier.hasMore ? 1 : 0),
             itemBuilder: (context, index) {
+              // When the last item is reached, trigger the load more action
               if (index == articles.length) {
-                // Display loading indicator when loading more
                 notifier.loadMoreArticles();
                 return const Loader();
               }
@@ -41,7 +40,7 @@ class ArticleScreen extends ConsumerWidget {
           );
         },
         error: (error, stackTrace) {
-          Log.v("Error: $error");
+          Log.v(tag: "Article Screen", msg: "getArticle error: $error");
           return Center(child: Text('Error: $error'));
         },
         loading: () => const Loader(),
