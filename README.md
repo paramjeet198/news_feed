@@ -56,13 +56,14 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  firebase_core: ^3.7.0
-  cloud_firestore: ^5.4.5
-  flutter_riverpod: ^2.6.1
+  firebase_core: ^3.7.0             # for firebase
+  cloud_firestore: ^5.4.5           # for database
+  flutter_riverpod: ^2.6.1          # for state management
   riverpod_annotation: ^2.6.1
-  cached_network_image: ^3.4.1    # for caching images
-  connectivity_plus: ^6.1.0
+  cached_network_image: ^3.4.1      # for caching images
+  connectivity_plus: ^6.1.0         # for checking network connectivity
   http: ^1.2.2
+  go_router: ^14.6.0                # for Navigation
 
 
 dev_dependencies:
