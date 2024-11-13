@@ -1,8 +1,9 @@
 # News Feed App with Firebase Integration
 
 
-Overview
-This News Feed app fetches articles from Firebase Firestore and displays them in a clean, scrollable list. It uses Riverpod for state management, cached_network_image for image caching, and Firestore’s built-in offline support to ensure smooth performance even with limited connectivity.
+### Overview
+This News Feed app fetches articles from Firebase Firestore and displays them in a clean, scrollable list. 
+It uses **Riverpod** for **state management**, **cached_network_image** for **image caching**, and **Firestore’s** built-in offline support to ensure smooth performance even with limited connectivity.
 
 ### Key Features
 - **Lazy Loading**: ListView.builder ensures articles are loaded only when needed, improving scrolling performance.
