@@ -29,24 +29,24 @@ It uses **Riverpod** for **state management**, **cached_network_image** for **im
     - The FirestoreService handles interaction with Firestore to fetch articles in batches, ensuring efficient data retrieval.
 
 ### 1.State Management with Riverpod:
-    - The ArticleNotifier is a Riverpod provider that manages the state for articles.
-    - It fetches the initial batch of articles and handles pagination for loading more articles as the user scrolls.
+- The ArticleNotifier is a Riverpod provider that manages the state for articles.
+- It fetches the initial batch of articles and handles pagination for loading more articles as the user scrolls.
 
 ### 3. Initial Data Load:
-    - Upon app launch, the first batch of articles is fetched using fetchPaginatedArticles(). A limit is applied to restrict the number of articles loaded at once.
+- Upon app launch, the first batch of articles is fetched using fetchPaginatedArticles(). A limit is applied to restrict the number of articles loaded at once.
 
 ### 4. Pagination (Load More):
-    - When the user reaches the end of the list, loadMoreArticles() is called to load additional articles. It appends new articles to the current list and updates the state.
+- When the user reaches the end of the list, loadMoreArticles() is called to load additional articles. It appends new articles to the current list and updates the state.
 
 ### 5. Data Refresh:
-    - When the user pulls to refresh, the app checks for an internet connection before refreshing the articles.
-    - If the device is online, the app fetches fresh articles from Firestore using refreshArticles() and updates the state.
+ - When the user pulls to refresh, the app checks for an internet connection before refreshing the articles.
+- If the device is online, the app fetches fresh articles from Firestore using refreshArticles() and updates the state.
 
 ### 6. Offline Support:
-    - The app uses Firestore's offline caching feature to ensure articles are available even when the device is not connected to the internet.
+- The app uses Firestore's offline caching feature to ensure articles are available even when the device is not connected to the internet.
 
 ### 7. Connectivity Handling:
-    - The app checks for network connectivity before performing refresh operations. If there’s no internet, it throws an exception and handles it gracefully.
+- The app checks for network connectivity before performing refresh operations. If there’s no internet, it throws an exception and handles it gracefully.
 
 
 ### Dependencies
