@@ -25,8 +25,8 @@ It uses **Riverpod** for **state management**, **cached_network_image** for **im
 
 ### App Flow
 #### 1. Firestore Integration:
-    - The app fetches articles from Firestore using a paginated approach.
-    - The FirestoreService handles interaction with Firestore to fetch articles in batches, ensuring efficient data retrieval.
+- The app fetches articles from Firestore using a paginated approach.
+- The FirestoreService handles interaction with Firestore to fetch articles in batches, ensuring efficient data retrieval.
 
 #### 2.State Management with Riverpod:
 - The ArticleNotifier is a Riverpod provider that manages the state for articles.
