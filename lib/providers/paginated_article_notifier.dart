@@ -85,6 +85,7 @@ class ArticleNotifier extends _$ArticleNotifier {
 
       final freshArticles =
           await fireStoreService.refreshArticles(limit: limit);
+      hasMore = freshArticles.length == limit;
 
       for (var item in freshArticles) {
         Log.v(tag: tag, msg: "Refreshed Articles Name: ${item.title}");

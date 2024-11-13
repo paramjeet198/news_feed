@@ -21,7 +21,7 @@ class FirestoreService {
   Future<List<Article>> fetchPaginatedArticles({required int limit}) async {
     try {
       await Future.delayed(
-          const Duration(seconds: 1)); // Fake delay to show loading indicator
+          const Duration(milliseconds: 100)); // Fake delay to show loading indicator
 
       Query query = _db
           .collection(collectionPath)
