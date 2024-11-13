@@ -21,7 +21,7 @@ class FirestoreService {
   Future<List<Article>> fetchPaginatedArticles({required int limit}) async {
     try {
       await Future.delayed(
-          const Duration(seconds: 2)); // Fake delay to show loading indicator
+          const Duration(seconds: 1)); // Fake delay to show loading indicator
 
       Query query = _db
           .collection(collectionPath)
@@ -29,11 +29,11 @@ class FirestoreService {
           .limit(limit);
 
       if (lastDocument != null) {
-        query = query.startAfterDocument(
-            lastDocument!); // Start after the last fetched document
+        // Start after the last fetched document
+        query = query.startAfterDocument(lastDocument!);
       }
 
-      final snapshot = await query.get();
+      final snapshot = await query.get(const GetOptions(source: Source.serverAndCache));
       if (snapshot.docs.isNotEmpty) {
         lastDocument = snapshot
             .docs[snapshot.size - 1]; // Set the last document for pagination
@@ -43,6 +43,33 @@ class FirestoreService {
           .toList();
     } catch (e) {
       Log.v(tag: tag, msg: "fetchPaginatedArticles error: $e");
+      rethrow;
+    }
+  }
+
+  // Dedicated method for refreshing articles (reset pagination)
+  Future<List<Article>> refreshArticles({required int limit}) async {
+    try {
+      // Reset lastDocument to start from the beginning
+      lastDocument = null;
+
+      // Fetch articles from the server, forcing a fresh fetch
+      Query query = _db
+          .collection(collectionPath)
+          .orderBy('timeStamp', descending: true)
+          .limit(limit);
+
+      final snapshot = await query.get(const GetOptions(source: Source.server)); // Force fetch from the server
+
+      if (snapshot.docs.isNotEmpty) {
+        lastDocument = snapshot.docs[snapshot.size - 1]; // Set the last document for pagination
+      }
+
+      return snapshot.docs
+          .map((doc) => Article.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      Log.v(tag: tag, msg: "refreshArticles error: $e");
       rethrow;
     }
   }
@@ -62,16 +89,36 @@ class FirestoreService {
     }
   }
 
-  /// Streams real-time updates of all articles from Firestore.
+  /// Streams real-time updates of articles from Firestore.
   ///
   /// Returns a stream of articles that automatically updates whenever the Firestore data changes.
-  Stream<List<Article>> getArticles() {
-    return _db.collection(collectionPath).snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        return Article.fromJson(doc.data());
-      }).toList();
-    });
+  Stream<List<Article>> fetchPaginatedArticlesStream({required int limit}) {
+    try {
+      // Firestore query setup
+      Query query = _db
+          .collection(collectionPath)
+          .orderBy('timeStamp', descending: true)
+          .limit(limit);
+
+      if (lastDocument != null) {
+        query = query.startAfterDocument(lastDocument!); // Start after the last fetched document
+      }
+
+      // Listen to Firestore for updates
+      return query.snapshots().map((snapshot) {
+        if (snapshot.docs.isNotEmpty) {
+          lastDocument = snapshot.docs[snapshot.size - 1]; // Set the last document for pagination
+        }
+        return snapshot.docs
+            .map((doc) => Article.fromJson(doc.data() as Map<String, dynamic>))
+            .toList();
+      });
+    } catch (e) {
+      Log.v(tag: tag, msg: "fetchPaginatedArticlesStream error: $e");
+      rethrow;
+    }
   }
+
 
   /// Fetches a specific article by its ID.
   ///

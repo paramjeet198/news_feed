@@ -1,5 +1,7 @@
 import 'package:news_feed/providers/providers.dart';
+import 'package:news_feed/utils/check_connectivity.dart';
 import 'package:news_feed/utils/logger.dart';
+import 'package:news_feed/utils/no_internet_exception.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../model/article.dart';
 import '../service/firestore_db_service.dart';
@@ -39,7 +41,8 @@ class ArticleNotifier extends _$ArticleNotifier {
   ///
   /// Returns a list of articles fetched from Firestore.
   Future<List<Article>> _loadInitialArticles() async {
-    final articles = await fireStoreService.fetchPaginatedArticles(limit: limit);
+    final articles =
+        await fireStoreService.fetchPaginatedArticles(limit: limit);
     hasMore = articles.length == limit;
     Log.v(tag: tag, msg: "Initial Load Article length: ${articles.length}");
     return articles;
@@ -70,6 +73,30 @@ class ArticleNotifier extends _$ArticleNotifier {
       state = AsyncError(e, StackTrace.current);
     } finally {
       isLoadingMore = false;
+    }
+  }
+
+  /// Refreshes the articles when the user pulls to refresh.
+  Future<void> refreshArticles() async {
+    try {
+      if (!await hasInternetConnection()) {
+        throw NoInternetException();
+      }
+
+      final freshArticles =
+          await fireStoreService.refreshArticles(limit: limit);
+
+      for (var item in freshArticles) {
+        Log.v(tag: tag, msg: "Refreshed Articles Name: ${item.title}");
+      }
+
+      // If articles exist, update state with fresh data
+      if (freshArticles.isNotEmpty) {
+        state = AsyncData(freshArticles);
+      }
+    } catch (e) {
+      Log.v(tag: tag, msg: "refreshArticles error: $e");
+      state = AsyncError(e, StackTrace.current);
     }
   }
 }
