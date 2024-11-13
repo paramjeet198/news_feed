@@ -23,11 +23,30 @@ This News Feed app fetches articles from Firebase Firestore and displays them in
    - Connectivity Check ensures the app only attempts to fetch new data when the network is available.
 
 ### Dependencies
-riverpod: ^2.0.0
-cached_network_image: ^3.2.1
-connectivity_plus: ^6.1.0
-firebase_core: ^1.10.0
-cloud_firestore: ^3.1.5
+```riverpod: ^2.0.0
 
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  firebase_core: ^3.7.0
+  cloud_firestore: ^5.4.5
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  cached_network_image: ^3.4.1    # for caching images
+  connectivity_plus: ^6.1.0
+  http: ^1.2.2
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  riverpod_generator: ^2.6.2
+  build_runner: ^2.4.13
+  custom_lint: ^0.7.0
+  riverpod_lint: ^2.6.2
+
+```
 ### Conclusion
 This app is optimized for performance with lazy loading, image caching, and offline support, ensuring a smooth user experience even with poor connectivity.
