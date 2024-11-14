@@ -1,4 +1,4 @@
-# News Feed App with Firebase Integration
+# News Feed App with Firestore & Riverpod Integration
 
 
 ### Overview
